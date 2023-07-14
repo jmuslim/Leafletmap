@@ -1,0 +1,17 @@
+{
+    "name": "janna/php",
+    "autoload": {
+        "psr-4": {
+            "Janna\\Php\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jannatul Fardus Muslim",
+            "email": "jannatul.fardus@hotmail.com"
+        }
+    ],
+    "require": {
+        "opencage/geocode": "^3.1"
+    }
+}

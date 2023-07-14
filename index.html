@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project1</title>
+    <link rel="stylesheet" href="libs/css/styles.css">
+    <link rel="stylesheet" href="libs/bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="libs/leaflet/easy-button.css">
+    <link rel="stylesheet" href="libs/leaflet/L.Control.MousePosition.css">
+    <link rel="stylesheet" href="libs/leaflet/Leaflet.PolylineMeasure.css">
+    <link rel="stylesheet" href="libs/src/css/L.Control.OpenCageSearch.css">
+    
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="crossorigin=""></script>
+    <script src="libs/leaflet/easy-button.js"></script>
+    <script src="libs/leaflet/L.Control.MousePosition.js"></script>
+    <script src="libs/leaflet/Leaflet.PolylineMeasure.js"></script>
+    <script src="libs/src/js/L.Control.OpenCageSearch.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    
+  </head>
+  <body>
+    <div id="gazMap">
+      <select class="header-left" id="countryList" >
+        <option value=""> Select Country </option> 
+      </select>
+
+      <!-- Weather Modal -->
+      <div class="modal fade" id="weatherUpdate" tabindex="-1" role="dialog" 
+      aria-labelledby="weather_Info_Display" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-top-left">
+       <div class="modal-content weather-modal">
+        <div class="modal-header">
+          <h5 class="modal-title" id="weatherCondition">Weather</h5>
+          <button type="button"class="btn-close"data-bs-dismiss="modal"aria-label="Close"></button>
+        </div>
+        <div class="modal-body weather-modal">
+          <label for="weather" class="weather"></label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary close-modal" 
+          data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Geopraghical Information Modal -->
+  <div class="modal fade" id="country_information" role="dialog" tabindex="-1" 
+  aria-labelledby="country_Info_Display" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content country-modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="country_Information-title">Country Inofrmation</h5>
+        <button type="button"class="btn-close"data-bs-dismiss="modal"aria-label="Close"></button>
+    </div>
+        <div class="modal-body country-modal">
+          <label for="countries_Information" class="country_Info"></label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary close-modal-country" 
+          data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Currency Modal  -->
+  <div class="modal fade" id="currency_info" tabindex="-1" role="dialog" 
+  aria-labelledby="Currency_Info_Display" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-top-left">
+    <div class="modal-content currency-modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="currency">Today's currency rate of follwing countries:</h5>
+        <button type="button"class="btn-close"data-bs-dismiss="modal"aria-label="Close"></button>
+      </div>
+      <div class="modal-body weather-modal">
+        <label for="currency" class="currency"></label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary close-modal" 
+        data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Wikipedia Modal  -->
+<div class="modal fade" id="wikipedia_Info" tabindex="-1" role="dialog" 
+aria-labelledby="wikipedia_Info_Display" aria-hidden="true">
+<div class="modal-dialog modal-dialog-top-left">
+  <div class="modal-content wikipedia-modal">
+    <div class="modal-header">
+          <h5 class="modal-title" id="wikipedia">Wikipedia</h5>
+          <button type="button"class="btn-close"data-bs-dismiss="modal"aria-label="Close"></button>
+        </div>
+        <div class="modal-body wikipedia-modal">
+          <label for="wikipedia" class="wikipedia"></label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary close-modal" 
+          data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<script type="application/javascript" src="libs/js/jquery-2.2.3.min.js"></script>
+<script type="application/javascript" src="libs/bootstrap-5.3.0-alpha3-dist/js/bootstrap.min.js"></script>
+<script type="application/javascript" src="libs/js/script.js"></script>
+</body>
+</html>
+

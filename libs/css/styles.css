@@ -1,0 +1,70 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+#gazMap{
+    height: 100vh;
+    width: 100%;
+    /* position:relative; */
+}
+#countryList{
+    position:relative;
+    z-index:450;
+    left:5px;
+    background:#d3cdcd;
+    padding:8px;
+    margin:30px 50px;
+    border-radius:9px;
+    box-shadow:3px 3px 3px rgb(22, 22, 22);
+    min-height:20px;
+    font-size:20px;
+}
+
+/* #weatherUpdate{
+    position: absolute;
+    padding-left: 40px;
+    width:150px;
+    padding: 20px;
+    margin-left: 5px;
+    background-color:#a8b2c3;
+    z-index:450;
+    font-family:sans-serif;
+    font-size:medium;
+    font-weight:400;
+    border: 2px solid rgb(126, 123, 123);
+    border-radius: 10px;
+} */
+
+
+/* .close-modal, .close-modal-country  {
+    background-color:#a8b2c3;
+    border-radius: 5px;
+
+} */
+
+/* #country_information{
+    position: absolute;
+    width:280px;
+    margin-left: 250px;
+    background-color:#a8b2c3;
+    padding: 10px;
+    font-family:sans-serif;
+    font-size:medium;
+    font-weight:400;
+    border-radius: 10px;
+    border: 2px solid rgb(126, 123, 123);
+    text-decoration: none;
+    text-align:left;
+}
+
+.modal{
+    position: absolute;
+    z-index: 9999;
+    display: none;
+} */
+
+
+
+ /* #country_information .modal-content{
+    margin-left: 50%;
+} */
