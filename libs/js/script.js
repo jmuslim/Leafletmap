@@ -1,5 +1,5 @@
 // Creating map and tiles
-const myMap = L.map('gazMap').setView([0, 0], 5);
+const myMap = L.map('gazMap').setView([0, 0], 2);
 const tileLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
 	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'}).addTo(myMap);
 
@@ -29,19 +29,15 @@ Stadia_AlidadeSmooth = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_s
     function success (position){
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
-        const accuracy = position.coords.accuracy;
-
         const marker =  L.marker([lat,lng]).addTo(myMap);
-       let circle = L.circle([lat,lng],
-        {
+        const circle = L.circle([lat,lng],{
         color:'blue',
-        fillColor:'#f03',
-        fillOpacity:0.5,
-        redius:accuracy
+        redius:500
         }).addTo(myMap);
-    
-        marker.bindPopup("[ lat: 51.752 ]<br>[ lng:-0.925 ]").openPopup();
+        marker.bindPopup(`[<strong>lat:</strong> 51.752 ]<br>[<strong>lng:</strong> -0.925 ]<br><img width= 120 height= 100 src="libs/images/england.webp"/>`).openPopup();
     }
+
+
 // BaseMap, and OverLayers
 let World7wonder;
     const baseMaps = {
@@ -64,13 +60,26 @@ let World7wonder;
 
 
 //World 7 wonder with overLayer
-let theColosseumMarker = L.marker([41.89032198651016, 12.492155794382084]).bindPopup(`<strong>1.The Colosseum, Rome, Italy</strong><br>The Colosseum is the great oval amphitheater in the center of Rome where gladiators once fought for their life. The largest amphitheater ever built, it was constructed from sand and stone over eight years, from AD72 to AD80. The colossal structure could hold 80,000 spectators, arranged in a circular ring around the central stage. `);
-    theGreatWallMarker = L.marker([40.432722885980226, 116.56998831293743]).bindPopup(`<strong>2.The Great Wall of China</strong><br>The Great Wall of China is a huge barrier that spans thousands of miles along China’s historic northern border. Created over millennia, the wall began its life as a series of smaller walls dating back to the 7th century BCE, built as protective barriers against nomadic raids. In 220 BCE, China’s first Emperor Qin Shi Huang masterminded the unification of all China’s walls into one almighty barrier, strengthening and extending the wall to keep out northern invaders. Today the wall is recognized as one of the seven wonders, which, including all its branches, measures a whopping 13,171 miles.`);
-    theTajMahalMarker = L.marker([27.17528794423407, 78.0420670936512]).bindPopup(`<strong>3.The Taj Mahal, India</strong><br>ndia’s renowned Taj Mahal (Persian for Crown of Palaces) is the stunning white marble mausoleum on the bank of the Yamuna River in the city of Agra, and it has been selected as one of the seven wonders of the world. Mughal emperor, Shah Jahan built the temple as a tomb for his beloved wife Mumtaz Mahal, who died during childbirth in 1631. A marble tomb in the center is surrounded by 42 acres of grounds, where gardens, a mosque, guest house and pool complete the complex. The entire project took over 22 years to complete by 20,000 workers at a cost of 32 million rupees (around US$827 million by today’s standards).`),
-    christTheRedeemerMarker = L.marker([-22.9516689924088, -43.210551577670024]).bindPopup(`<strong>4.Christ the Redeemer, Brazil</strong><br>The totemic statue of Christ the Redeemer stands over Rio de Janeiro on the top of Mount Corcovado. At 30 meters tall, this monument is an iconic emblem of Brazil. This huge public artwork was designed by the Polish-French sculptor Paul Landowski in the 1920s and completed by Brazilian engineer Heitor da Silva Costa, and French engineer Albert Caquot in 1931. Made from reinforced concrete clad in over 6 million soapstone tiles, Christ the Redeemer is the largest Art Deco sculpture in the world. Built just after the end of the First World War, the sculpture was an overpowering symbol of Christianity and hope when the world had been brought to its knees, so its no surprise that this monument made the list for today’s seven wonders.`),
-    theMachuPicchuMarker = L.marker([-13.171609953700436, -72.54265302896307]).bindPopup(`<strong>5.Machu Picchu, Peru</strong><br>Machu Picchu is a lost treasure of the 15th century, a rare citadel discovered high in the Andes mountains above the Peruvian Sacred Valley. Astonishingly, it is one of the only pre-Columbian ruins found nearly intact, featuring evidence of former plazas, temples, agricultural terraces and homes. Archaeologists believe the citadel was built as an estate for the Inca emperor Pachacuti in around 1450 in polished drystone walls. The Incas abandoned the site a century later and it remained hidden for millennia, before being brought to public attention by American historian Hiram Bingham in 1911. Because of this remarkable preservation, it is recognized today as one of the seven wonders.`);
-    theChichénItzáMarker = L.marker([20.68480057843818, -88.56796275716576]).bindPopup(`<strong>6.Chichén Itzá, Mexico</strong><br>Chichen Itza, a historic Mayan city built between the 9th and 12th centuries. Constructed by the pre-Columbian Mayan tribe Itzá, the city includes a series of monuments and temples.`);
-    thePetraMarker = L.marker([30.371717556690538, 35.46164280344782]).bindPopup(`<strong>7. Petra, Jordan</strong><br> Petra, the ancient city in southern Jordan is also known as the ‘rose city’ for its golden hue`);
+let theColosseumMarker = L.marker([41.89032198651016, 12.492155794382084]).bindPopup(`<strong>1.The Colosseum, Rome, Italy</strong><br>The Colosseum is the great oval amphitheater in the center of Rome where gladiators once fought for their life. The largest amphitheater ever built, it was constructed from sand and stone over eight years, from AD72 to AD80. The colossal structure could hold 80,000 spectators, arranged in a circular ring around the central stage. <br>
+<img width= 180 height= 180 src ="libs/images/colosseum1.webp" />`);
+
+    theGreatWallMarker = L.marker([40.432722885980226, 116.56998831293743]).bindPopup(`<strong>2.The Great Wall of China</strong><br>The Great Wall of China is a huge barrier that spans thousands of miles along China’s historic northern border. Created over millennia, the wall began its life as a series of smaller walls dating back to the 7th century BCE, built as protective barriers against nomadic raids. In 220 BCE, measures a whopping 13,171 miles.<br>
+<img width= 180 height= 180 src ="libs/images/great-wall-china2.webp" />`);
+
+    theTajMahalMarker = L.marker([27.17528794423407, 78.0420670936512]).bindPopup(`<strong>3.The Taj Mahal, India</strong><br>ndia’s renowned Taj Mahal (Persian for Crown of Palaces) is the stunning white marble mausoleum on the bank of the Yamuna River in the city of Agra. Mughal emperor, Shah Jahan built the temple as a tomb for his beloved wife Mumtaz Mahal, who died during childbirth in 1631. A marble tomb in the center is surrounded by 42 acres of grounds, where gardens, a mosque, guest house and pool complete the complex. The project took over 22 years to complete by 20,000 workers at a cost of 32 million rupees (around US$827 million by today’s standards).<br>
+<img width= 180 height= 180 src ="libs/images/the-taj-mahal3.webp" />`),
+
+    christTheRedeemerMarker = L.marker([-22.9516689924088, -43.210551577670024]).bindPopup(`<strong>4.Christ the Redeemer, Brazil</strong><br>The totemic statue of Christ the Redeemer stands over Rio de Janeiro on the top of Mount Corcovado. At 30 meters tall, this monument is an iconic emblem of Brazil. This huge public artwork was designed by the Polish-French sculptor Paul Landowski in the 1920s and completed by Brazilian engineer Heitor da Silva Costa, and French engineer Albert Caquot in 1931. Made from reinforced concrete clad in over 6 million soapstone tiles, Christ the Redeemer is the largest Art Deco sculpture in the world. Built just after the end of the First World War.<br>
+<img width= 180 height= 180 src ="libs/images/christ-the-redeemer3.webp" />`),
+
+    theMachuPicchuMarker = L.marker([-13.171609953700436, -72.54265302896307]).bindPopup(`<strong>5.Machu Picchu, Peru</strong><br>Machu Picchu is a lost treasure of the 15th century, a rare citadel discovered high in the Andes mountains above the Peruvian Sacred Valley. Astonishingly, it is one of the only pre-Columbian ruins found nearly intact, featuring evidence of former plazas, temples, agricultural terraces and homes. Archaeologists believe the citadel was built as an estate for the Inca emperor Pachacuti in around 1450 in polished drystone walls.<br>
+<img width= 180 height= 180 src ="libs/images/machu-picchu4.webp" />`);
+
+    theChichénItzáMarker = L.marker([20.68480057843818, -88.56796275716576]).bindPopup(`<strong>6.Chichén Itzá, Mexico</strong><br>Chichen Itza, a historic Mayan city built between the 9th and 12th centuries. Constructed by the pre-Columbian Mayan tribe Itzá, the city includes a series of monuments and temples.<br>
+<img width= 180 height= 180 src ="libs/images/chichen-itza6.webp" />`);
+
+    thePetraMarker = L.marker([30.371717556690538, 35.46164280344782]).bindPopup(`<strong>7. Petra, Jordan</strong><br> Petra, the ancient city in southern Jordan is also known as the ‘rose city’ for its golden hue.<br>
+<img width= 180 height= 180 src ="libs/images/Petra7.jpg" />`);
 
 // Layer Group
 let theColosseum = L.layerGroup([theColosseumMarker]);
@@ -140,7 +149,8 @@ $.ajax({url: 'libs/php/countryBorder.php',
 
 
 //Forword_Geo_Coding and Weather 
-$('#countryList').change(function(){
+$('#countryList').change(function(e){
+    e.preventDefault();
     $.ajax({
         url: "libs/php/forwardGeocoding.php",
         type: 'POST',
@@ -174,7 +184,8 @@ $('#countryList').change(function(){
                             <strong>Cloud: </strong>${result1.data.weather[0].description}<br>`
                             console.log('It\'s working!!!');
                             console.log(result1);
-                            $('#weatherUpdate').modal();
+                            $('#weatherUpdate').modal("show");
+                            $('#weatherUpdate').modal("show");
                          }
                },
                     error: function(jqXHR, textStatus, errorThrown) {
