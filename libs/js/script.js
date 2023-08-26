@@ -173,6 +173,7 @@ $('#countryList').change(function(e){
                         success: function(result1) {
                             console.log(JSON.stringify(result1));
                          if (result1.status.name == "ok") {
+                            weatherDisplay.innerHTML = "";
                             weatherDisplay.innerHTML += 
                             `<img src = https://openweathermap.org/img/wn/${result1.data.weather[0].icon}@2x.png><br>
                             <strong>Country: </strong> ${result1.data.sys.country}, ${result1.data.name}<br>
@@ -209,7 +210,7 @@ $('#countryList').change(function(e){
              if (result2.status.code == "200") {
                 console.log(result2.status.code, typeof result2.status.code);
                 console.log(result2.data[0].capital);
-
+                countryInfoDisplay.innerHTML = "";
                 countryInfoDisplay.innerHTML +=
                 `<strong>Country Name: </strong> ${result2.data[0].countryName}, ${result2.data[0].isoAlpha3}<br>
                 <strong>Capital: </strong> ${result2.data[0].capital}<br>
@@ -240,6 +241,7 @@ $('#countryList').change(function(e){
                     console.log();
                     console.log(result3.status.code, typeof result3.status.code);
                     console.log(result3);
+                    currencyDisplay.innerHTML = "";
                     currencyDisplay.innerHTML +=`
                     <strong> Base: </strong> ${result3.data.base}<br>
                     <strong> England: </strong>${result3.data.rates.GBP}<br>
@@ -270,6 +272,7 @@ $('#countryList').change(function(e){
                 if (result4.status.code == "200") {
                     console.log(result4.status.code, typeof result4.status.code);
                     console.log(result4);
+                    wikipediaLink.innerHTML = "";
                     wikipediaLink.innerHTML +=`
                     <strong> Country title: </strong>${result4.data.geonames[0].title}<br>
                     <strong> Rank: </strong>${result4.data.geonames[0].rank}<br>
