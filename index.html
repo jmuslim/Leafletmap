@@ -14,12 +14,15 @@
     <link rel="stylesheet" href="libs/leaflet/L.Control.MousePosition.css">
     <link rel="stylesheet" href="libs/leaflet/Leaflet.PolylineMeasure.css">
     <link rel="stylesheet" href="libs/src/css/L.Control.OpenCageSearch.css">
+    <link rel="stylesheet" href="libs/leaflet/MarkerCluster.css">
+    <link rel="stylesheet" href="libs/leaflet/MarkerCluster.Default.css">
     
 
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="crossorigin=""></script>
     <script src="libs/leaflet/easy-button.js"></script>
     <script src="libs/leaflet/L.Control.MousePosition.js"></script>
     <script src="libs/leaflet/Leaflet.PolylineMeasure.js"></script>
+    <script src="libs/leaflet/leaflet.markercluster.js"></script>
     <script src="libs/src/js/L.Control.OpenCageSearch.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     
@@ -76,7 +79,7 @@
   <div class="modal-dialog modal-dialog-top-left">
     <div class="modal-content currency-modal">
       <div class="modal-header">
-        <h5 class="modal-title" id="currency">Today's currency rate of follwing countries:</h5>
+        <h5 class="modal-title" id="currency">Currency Rate</h5>
         <button type="button"class="btn-close"data-bs-dismiss="modal"aria-label="Close"></button>
       </div>
       <div class="modal-body weather-modal">
@@ -101,6 +104,27 @@ aria-labelledby="wikipedia_Info_Display" aria-hidden="true">
         </div>
         <div class="modal-body wikipedia-modal">
           <label for="wikipedia" class="wikipedia"></label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary close-modal" 
+          data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<!-- Earthquakes Modal  -->
+<div class="modal fade" id="nobelPrize_Info" tabindex="-1" role="dialog" 
+aria-labelledby="nobelPrize_Info_Display" aria-hidden="true">
+<div class="modal-dialog modal-dialog-top-left">
+  <div class="modal-content nobelPrize-modal">
+    <div class="modal-header">
+          <h5 class="modal-title" id="nobelPrize">Nobel Prize</h5>
+          <button type="button"class="btn-close"data-bs-dismiss="modal"aria-label="Close"></button>
+        </div>
+        <div class="modal-body nobelPrize-modal">
+          <label for="nobelPrize" class="nobelPrize"></label>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary close-modal" 

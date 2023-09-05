@@ -1,9 +1,9 @@
 // Creating map and tiles
 const myMap = L.map('gazMap').setView([0, 0], 2);
+
 const tileLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
 	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'}).addTo(myMap);
 
-// Tile-Layereet = L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}').bindPopup('I am Google map.'),
 let Stadia_OSMBright = L.marker([39.73, -104.8]).bindPopup('This is Stadia_OSMBright map.'),
 Stadia_AlidadeSmooth = L.marker([39.75, -105.23]).bindPopup('This is Stadia_AlidadeSmooth map.'),
 USGS_USImageryTopo = L.marker([39.79, -105.23]).bindPopup('This is USGS_USImageryTopo map.'),
@@ -24,19 +24,7 @@ Stadia_AlidadeSmooth = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_s
 	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
     });
 
-    // Marking Current Poisition
-    let currentPossition = navigator.geolocation.getCurrentPosition(success);
-    function success (position){
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        const marker =  L.marker([lat,lng]).addTo(myMap);
-        const circle = L.circle([lat,lng],{
-        color:'blue',
-        redius:500
-        }).addTo(myMap);
-        marker.bindPopup(`[<strong>lat:</strong> 51.752 ]<br>[<strong>lng:</strong> -0.925 ]<br><img width= 120 height= 100 src="libs/images/england.webp"/>`).openPopup();
-    }
-
+    
 
 // BaseMap, and OverLayers
 let World7wonder;
@@ -81,6 +69,8 @@ let theColosseumMarker = L.marker([41.89032198651016, 12.492155794382084]).bindP
     thePetraMarker = L.marker([30.371717556690538, 35.46164280344782]).bindPopup(`<strong>7. Petra, Jordan</strong><br> Petra, the ancient city in southern Jordan is also known as the ‘rose city’ for its golden hue.<br>
 <img width= 180 height= 180 src ="libs/images/Petra7.jpg" />`);
 
+
+
 // Layer Group
 let theColosseum = L.layerGroup([theColosseumMarker]);
 let theGreatWall = L.layerGroup([theGreatWallMarker]);
@@ -100,43 +90,70 @@ layerControl.addOverlay(theChichénItzá, "6.Chichén Itzá, Mexico");
 layerControl.addOverlay(thePetra, "7.Petra, Jordan");
 
 
-//Uk Border Polygon
-let currentGeoCountry = [{
-    "type": "Feature",
-    "properties": {"name": "United Kingdom"},
-    "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [[[[-5.661948614921897,54.55460317648385],[-6.197884894220977,53.86756500916334],[-6.953730231137996,54.073702297575636],[-7.572167934591079,54.05995636658599],[-7.366030646178785,54.595840969452695],[-7.572167934591079,55.1316222194549],[-6.733847011736145,55.1728600124238],[-5.661948614921897,54.55460317648385]]],[[[-3.005004848635281,58.63500010846633],[-4.073828497728016,57.55302480735525],[-3.055001796877661,57.69001902936095],[-1.959280564776918,57.68479970969951],[-2.219988165689301,56.87001740175353],[-3.119003058271118,55.973793036515474],[-2.085009324543023,55.90999848085127],[-2.005675679673857,55.80490285035023],[-1.11499101399221,54.62498647726539],[-0.4304849918542,54.46437612570216],[0.184981316742039,53.32501414653103],[0.469976840831777,52.92999949809197],[1.681530795914739,52.739520168664],[1.559987827164377,52.09999848083601],[1.050561557630914,51.806760565795685],[1.449865349950301,51.28942780212196],[0.550333693045502,50.765738837275876],[-0.78751746255864,50.77498891865622],[-2.489997524414377,50.50001862243124],[-2.956273972984036,50.696879991247016],[-3.617448085942328,50.22835561787272],[-4.542507900399244,50.34183706318566],[-5.245023159191135,49.95999990498108],[-5.776566941745301,50.15967763935682],[-4.309989793301838,51.21000112568916],[-3.414850633142123,51.42600861266925],[-3.422719467108323,51.42684816740609],[-4.984367234710874,51.593466091510976],[-5.267295701508885,51.99140045837458],[-4.222346564134853,52.301355699261364],[-4.770013393564113,52.840004991255626],[-4.579999152026915,53.49500377055517],[-3.093830673788659,53.404547400669685],[-3.092079637047106,53.404440822963544],[-2.945008510744344,53.984999701546684],[-3.614700825433034,54.600936773292574],[-3.63000545898933,54.615012925833014],[-4.844169073903004,54.790971177786844],[-5.082526617849226,55.06160065369937],[-4.719112107756644,55.50847260194348],[-5.047980922862109,55.78398550070752],[-5.586397670911139,55.31114614523682],[-5.644998745130181,56.275014960344805],[-6.149980841486354,56.78500967063354],[-5.786824713555291,57.81884837506465],[-5.009998745127575,58.63001333275005],[-4.211494513353557,58.55084503847917],[-3.005004848635281,58.63500010846633]
-        ]]]
-    },
-}];
-
-L.geoJSON(currentGeoCountry, {
-    style: function(feature) {
-        switch (feature.properties.name) {
-            case 'United Kingdom': return {color: "dogerblue"};
-        }
-    currentGeoCountry.bindPopup("This is Uk border polygon ").addTo(myMap);
-    }
-}).addTo(myMap);
-
-
-
-
 //DOM Element
 const weatherDisplay = document.querySelector('.weather');
 const countryInfoDisplay = document.querySelector('.country_Info');
 const currencyDisplay = document.querySelector('.currency');
 const wikipediaLink = document.querySelector('.wikipedia');
+const nobelPrizeLink = document.querySelector('.nobelPrize');
 
 
+
+// Marking Current Poisition
+function success (position){
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+
+$.ajax({
+    url: 'libs/php/center.php',
+    data:{latitude:lat,
+        longitude:lng
+    },
+    type: 'GET',
+        success: function(response) {
+            console.log(response)
+            var countryCode = response.data.countryCode;
+            $('#countryList').val(countryCode).change();
+            
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+    const marker =  L.marker([lat,lng]).addTo(myMap);
+    const circle = L.circle([lat,lng],{
+    color:'blue',
+    redius:500
+    }).addTo(myMap);
+    marker.bindPopup(`[<strong>lat:</strong> 51.752 ]<br>[<strong>lng:</strong> -0.925 ]<br><img width= 120 height= 100 src="libs/images/england.webp"/>`).openPopup();
+}
+
+
+// Border Highlighted for selected country 
+$('#countryList').on('change', function() {
+    
+    $.ajax({
+        url: 'libs/php/getBorderHighlight.php',
+        type: 'GET',
+        data:{countryCode:$('#countryList').val()},
+        dataType: 'JSON',
+        success: function (result) {
+            console.log( result)
+           let border = L.geoJSON(result.data).addTo(myMap);
+           myMap.fitBounds(border.getBounds());
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+})
 
 //Render GeoData for weather
 $.ajax({url: 'libs/php/countryBorder.php',
     type: 'GET',
     dataType: 'JSON',
     success:function(result){
-        console.log(result);
+        // console.log(result);
         for (const feature of result.data) {
             $('#countryList').append(`<option value='${feature.iso_a2}'>${feature.name}</option>`);
         }
@@ -145,7 +162,6 @@ $.ajax({url: 'libs/php/countryBorder.php',
         console.log(err);
     }
 });
-
 
 
 //Forword_Geo_Coding and Weather 
@@ -159,7 +175,7 @@ $('#countryList').change(function(e){
             countryName: encodeURI($('#countryList option:selected').text())
         },
             success: function(result) {
-                console.log(result);
+                // console.log(result);
              if (result.status.name == "ok") {
 
                 $.ajax({
@@ -171,7 +187,7 @@ $('#countryList').change(function(e){
                         longitude: result.data.results[0].geometry.lng
                     },
                         success: function(result1) {
-                            console.log(JSON.stringify(result1));
+                            // console.log(JSON.stringify(result1));
                          if (result1.status.name == "ok") {
                             weatherDisplay.innerHTML = "";
                             weatherDisplay.innerHTML += 
@@ -183,10 +199,9 @@ $('#countryList').change(function(e){
                             <strong>Feels-Like: </strong>${result1.data.main.feels_like}&deg;C<br>
                             <strong>Humidity: </strong>${result1.data.main.humidity}%<br>
                             <strong>Cloud: </strong>${result1.data.weather[0].description}<br>`
-                            console.log('It\'s working!!!');
-                            console.log(result1);
+                            // console.log(result1);
                             $('#weatherUpdate').modal("show");
-                            $('#weatherUpdate').modal("show");
+                            // $('#weatherUpdate').modal("show");
                          }
                },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -206,20 +221,66 @@ $('#countryList').change(function(e){
             country:$('#countryList').val()
         },
             success: function(result2) {
-                console.log(JSON.stringify(result2));
+                // console.log(JSON.stringify(result2));
              if (result2.status.code == "200") {
-                console.log(result2.status.code, typeof result2.status.code);
-                console.log(result2.data[0].capital);
+                // create cities ajax request here
+                // console.log(result2.status.code, typeof result2.status.code);
+                
+                  let areaSqm = parseFloat(result2.data[0].areaInSqKm).toLocaleString('en');
+                  let population = parseFloat(result2.data[0].population).toLocaleString('en');
+                  
                 countryInfoDisplay.innerHTML = "";
                 countryInfoDisplay.innerHTML +=
                 `<strong>Country Name: </strong> ${result2.data[0].countryName}, ${result2.data[0].isoAlpha3}<br>
                 <strong>Capital: </strong> ${result2.data[0].capital}<br>
                 <strong>Continent: </strong> ${result2.data[0].continentName}<br>
-                <strong>Area-In-SqKm: </strong> ${result2.data[0].areaInSqKm}<br>
-                <strong>Population: </strong> ${result2.data[0].population}<br>
+                <strong>Area-In-SqKm: </strong> ${areaSqm}<br>
+                <strong>Population: </strong>  ${population}<br>
                 <strong>Languages: </strong> ${result2.data[0].languages}<br>`
-                console.log(result2);
                 $('#country_information').modal();
+             }
+   },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+        }
+    });
+
+
+    $.ajax({
+        url: "libs/php/geographicalInformation.php",
+        type: 'POST',
+        dataType: 'json',
+        data:{
+            country:$('#countryList').val()
+        },
+            success: function(geoResult) {
+                // console.log(JSON.stringify(result2));
+                console.log(geoResult);
+             if (geoResult.status.code == "200") {
+                // create cities ajax request here
+                $.ajax({
+                    url:"libs/php/earthquakes.php",
+                    type: 'POST',
+                    dataType: 'json',
+                    data:{
+                        north:$('north').val(),
+                        south:$('south').val(),
+                        east:$('east').val(),
+                        west:$('west').val()
+                    },
+                    success: function(result6){
+                        if(result6.status.code == "200"){
+                            console.log(result6);
+                            for(let i =0; i<result6.length; i++){
+                                let a = result6[i];
+                                let title = a[2];
+                                let marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
+	                    		marker.bindPopup(title);
+		                    	marker_cluster.addLayer(marker);
+                            }
+                        }
+                    }
+                })
              }
    },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -236,19 +297,13 @@ $('#countryList').change(function(e){
             country:$('#countryList').val()
         },
             success: function(result3) {
-                console.log(JSON.stringify(result3));
+                // console.log(JSON.stringify(result3));
                 if (result3.status.code == "200") {
-                    console.log();
-                    console.log(result3.status.code, typeof result3.status.code);
-                    console.log(result3);
+                    // console.log(result3.status.code, typeof result3.status.code);
                     currencyDisplay.innerHTML = "";
                     currencyDisplay.innerHTML +=`
-                    <strong> Base: </strong> ${result3.data.base}<br>
-                    <strong> England: </strong>${result3.data.rates.GBP}<br>
-                    <strong> Saudi: </strong>${result3.data.rates.SAR}<br>
-                    <strong> Bangladesh: </strong>${result3.data.rates.BDT}<br>
-                    <strong> Europe: </strong>${result3.data.rates.EUR}<br>
-                    <strong> America: </strong>${result3.data.rates.USD}<br>
+                    <strong> USD Doller: </strong>${result3.data[0]} <br>
+                    <strong> ${result3.data[1]} : </strong>${result3.data[2]}<br>
                     `
                     $('#currency_info').modal();
                 }
@@ -265,22 +320,59 @@ $('#countryList').change(function(e){
         type: "POST",
         datatype: "json",
         data:{
-                q:$('#countryList').val()
+                q:encodeURI($('#countryList option:selected').text())
         },
             success: function(result4) {
-                console.log(JSON.stringify(result4));
+            // console.log(JSON.stringify(result4));
                 if (result4.status.code == "200") {
-                    console.log(result4.status.code, typeof result4.status.code);
-                    console.log(result4);
+                    // console.log(result4.status.code, typeof result4.status.code);
+                    // console.log(result4.data);
                     wikipediaLink.innerHTML = "";
                     wikipediaLink.innerHTML +=`
                     <strong> Country title: </strong>${result4.data.geonames[0].title}<br>
                     <strong> Rank: </strong>${result4.data.geonames[0].rank}<br>
-                    <strong> Wikipedua URL: </strong>${result4.data.geonames[0].wikipediaUrl
-                    }<br>
+                    <strong><img src="${result4.data.geonames[0].thumbnailImg}" height="100" width="200"><br>
                     <strong> Summary: </strong> ${result4.data.geonames[0].summary}<br>
+                    <a href="${result4.data.geonames[0].wikipediaUrl}">Wikipeadia</a>
                     `
                     $('#wikipedia_Info').modal();
+                }
+            },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+             }
+    });
+
+
+//EarthQuakes Modal Data  
+    $.ajax({
+        url: "libs/php/earthquakes.php",
+        type: "POST",
+        datatype: "json",
+        data:{
+            north:$('north').val(),
+            south:$('south').val(),
+            east:$('east').val(),
+            west:$('west').val()
+            // q:encodeURI($('#countryList option:selected').text())
+        },
+            success: function(result5) {
+                // console.log(JSON.stringify(result5));
+                console.log(result5);
+                if (result5.status.code == "200") {
+                    console.log(result5.data);
+                  /*  nobelPrizeLink.innerHTML = "";
+                    nobelPrizeLink.innerHTML +=`
+                    <strong>Full Name: </strong>${result5.data.laureates[0].fullName.en}<br>
+                    <strong> Country: </strong>${result5.data.laureates[0].birth.place.country.en}<br>
+                    <strong>Date Of Birth: </strong>${result5.data.laureates[0].birth.date}<br>
+                    <strong>Sex: </strong>${result5.data.laureates[0].gender}<br>
+                    <strong>Subject Catagory: </strong>${result5.data.laureates[0].nobelPrizes[0].category.en}<br>
+                    <strong>Prize Name: </strong>${result5.data.laureates[0].nobelPrizes[0].categoryFullName.en}</strong><br>
+                    <strong>Yearof Award: </strong>${result5.data.laureates[0].nobelPrizes[0].awardYear}<br>
+                    <strong>Date of Award: </strong>${result5.data.laureates[0].nobelPrizes[0].dateAwarded}<br>
+                    ` */
+                    $('#nobelPrize_Info').modal();
                 }
             },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -321,7 +413,7 @@ L.easyButton({
     states: [{
         icon: "fa-solid fa-cloud",
         stateName: 'unloaded',
-        title: 'Show Weather Information',
+        title: 'Weather',
         onClick: function(btn,map) {
             $("#weatherUpdate").modal("show");
             $(".close").click(function(){
@@ -345,7 +437,7 @@ L.easyButton({
     states: [{
         icon: "fa-location-arrow",
         stateName: 'unloaded',
-        title: 'Show Country Information',
+        title: 'Country Details',
         onClick: function(btn,map) {
             $("#country_information").modal('show');
             $(".close").click(function(){
@@ -367,7 +459,7 @@ L.easyButton({
     states: [{
         icon: "fa-solid fa-flag-checkered",
         stateName: 'unloaded',
-        title: 'Currency Compare',
+        title: 'Currency',
         onClick: function(btn,map) {
             $("#currency_info").modal("show");
             $(".close").click(function(){
@@ -377,6 +469,29 @@ L.easyButton({
     },
      {
         icon: 'fa-solid fa-flag-checkered',
+        stateName: 'checked',
+        onClick: function(btn,map) {
+            btn.state('unchecked');
+        }
+    }]
+}).addTo(myMap);
+
+L.easyButton({
+    position: 'topleft',
+    id: 'nobelPrize_Info',
+    states: [{
+        icon:"fa-solid fa-trophy",
+        stateName: 'unloaded',
+        title: 'Nobel Prize',
+        onClick: function(btn,map) {
+            $("#nobelPrize_Info").modal("show");
+            $(".close").click(function(){
+                $("#nobelPrize_Info").modal('hide');
+            });
+        }
+    },
+     {
+        icon: "fa-solid fa-trophy",
         stateName: 'checked',
         onClick: function(btn,map) {
             btn.state('unchecked');
