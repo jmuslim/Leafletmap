@@ -1,8 +1,8 @@
 // Creating map and tiles
-const myMap = L.map('gazMap').setView([0, 0], 2);
+const myMap = L.map('gazMap').setView([0, 0], 4);
 
-const tileLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
-	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'}).addTo(myMap);
+const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(myMap);
 
 let Stadia_OSMBright = L.marker([39.73, -104.8]).bindPopup('This is Stadia_OSMBright map.'),
 Stadia_AlidadeSmooth = L.marker([39.75, -105.23]).bindPopup('This is Stadia_AlidadeSmooth map.'),
