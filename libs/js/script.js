@@ -95,7 +95,7 @@ const weatherDisplay = document.querySelector('.weather');
 const countryInfoDisplay = document.querySelector('.country_Info');
 const currencyDisplay = document.querySelector('.currency');
 const wikipediaLink = document.querySelector('.wikipedia');
-const nobelPrizeLink = document.querySelector('.nobelPrize');
+const covid19Link = document.querySelector('.covid19');
 
 
 
@@ -175,7 +175,7 @@ $('#countryList').change(function(e){
             countryName: encodeURI($('#countryList option:selected').text())
         },
             success: function(result) {
-                // console.log(result);
+                console.log(result);
              if (result.status.name == "ok") {
 
                 $.ajax({
@@ -245,7 +245,7 @@ $('#countryList').change(function(e){
         }
     });
 
-
+//Another ajax call for cluster-marker
     $.ajax({
         url: "libs/php/geographicalInformation.php",
         type: 'POST',
@@ -259,26 +259,29 @@ $('#countryList').change(function(e){
              if (geoResult.status.code == "200") {
                 // create cities ajax request here
                 $.ajax({
-                    url:"libs/php/earthquakes.php",
+                    url:"libs/php/cities.php",
                     type: 'POST',
                     dataType: 'json',
                     data:{
-                        north:$('north').val(),
-                        south:$('south').val(),
-                        east:$('east').val(),
-                        west:$('west').val()
+                        north: geoResult.data[0].north,
+                        south: geoResult.data[0].south,
+                        east: geoResult.data[0].east,
+                        west: geoResult.data[0].west,
+                        lang: geoResult.data[0].languages,
                     },
-                    success: function(result6){
-                        if(result6.status.code == "200"){
-                            console.log(result6);
-                            for(let i =0; i<result6.length; i++){
-                                let a = result6[i];
-                                let title = a[2];
-                                let marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
-	                    		marker.bindPopup(title);
-		                    	marker_cluster.addLayer(marker);
-                            }
+                    success: function(citiesResult){
+                        console.log(citiesResult);
+                        if(citiesResult.status.code == "200"){
+                            console.log(citiesResult);
+                            let marker_cluster = L.markerClusterGroup();
+                           for (const iterator of citiesResult.data.geonames) {
+                            marker_cluster.addLayer(L.marker([iterator.lat, iterator.lng]).bindPopup(`<p>${iterator.name}</p>`));
+                           }
+                            myMap.addLayer(marker_cluster);
                         }
+                    },
+                    error:function(err){
+                        console.log(err);
                     }
                 })
              }
@@ -344,35 +347,36 @@ $('#countryList').change(function(e){
     });
 
 
-//EarthQuakes Modal Data  
+//Covid19 Modal
     $.ajax({
-        url: "libs/php/earthquakes.php",
+        url: "libs/php/covid19.php",
         type: "POST",
         datatype: "json",
         data:{
-            north:$('north').val(),
-            south:$('south').val(),
-            east:$('east').val(),
-            west:$('west').val()
-            // q:encodeURI($('#countryList option:selected').text())
+            country:encodeURI($('#countryList option:selected').text()),
         },
-            success: function(result5) {
-                // console.log(JSON.stringify(result5));
-                console.log(result5);
-                if (result5.status.code == "200") {
-                    console.log(result5.data);
-                  /*  nobelPrizeLink.innerHTML = "";
-                    nobelPrizeLink.innerHTML +=`
-                    <strong>Full Name: </strong>${result5.data.laureates[0].fullName.en}<br>
-                    <strong> Country: </strong>${result5.data.laureates[0].birth.place.country.en}<br>
-                    <strong>Date Of Birth: </strong>${result5.data.laureates[0].birth.date}<br>
-                    <strong>Sex: </strong>${result5.data.laureates[0].gender}<br>
-                    <strong>Subject Catagory: </strong>${result5.data.laureates[0].nobelPrizes[0].category.en}<br>
-                    <strong>Prize Name: </strong>${result5.data.laureates[0].nobelPrizes[0].categoryFullName.en}</strong><br>
-                    <strong>Yearof Award: </strong>${result5.data.laureates[0].nobelPrizes[0].awardYear}<br>
-                    <strong>Date of Award: </strong>${result5.data.laureates[0].nobelPrizes[0].dateAwarded}<br>
-                    ` */
-                    $('#nobelPrize_Info').modal();
+            success: function(covid_Result) {
+            console.log(JSON.stringify(covid_Result));
+            console.log(covid_Result.data)
+                if (covid_Result.status.code == "200") {
+                    console.log(covid_Result);
+                    let active_case =  parseFloat(covid_Result.data.response[0].cases.active).toLocaleString('en');
+                    let critical = parseFloat(covid_Result.data.response[0].cases.critical).toLocaleString('en');
+                    let recovred = parseFloat(covid_Result.data.response[0].cases.recovered).toLocaleString('en');
+                    let total = parseFloat(covid_Result.data.response[0].cases.total).toLocaleString('en');
+                    let total_deaths = parseFloat(covid_Result.data.response[0].deaths.total).toLocaleString('en');
+
+                    covid19Link.innerHTML = "";
+                    covid19Link.innerHTML +=`
+                    <strong> Country: </strong>${covid_Result.data.response[0].country}<br>
+                    <strong> Active Case: </strong>${active_case}<br>
+                    <strong> Critical: </strong>${critical}<br>
+                    <strong> Recovered: </strong>${recovred}<br>
+                    <strong> Total: </strong>${total}<br>
+                    <strong> Total Death: </strong>${total_deaths}<br>
+                    
+                    `
+                    $('#covid19_Info').modal();
                 }
             },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -453,6 +457,8 @@ L.easyButton({
     }]
 }).addTo(myMap);
 
+
+//Currency L.easyButton
 L.easyButton({
     position: 'topleft',
     id: 'currency_info',
@@ -476,22 +482,24 @@ L.easyButton({
     }]
 }).addTo(myMap);
 
+
+//Covi19 L.EasyButton
 L.easyButton({
     position: 'topleft',
-    id: 'nobelPrize_Info',
+    id: 'covid19_Info',
     states: [{
-        icon:"fa-solid fa-trophy",
+        icon: "fa-solid fa-plus",
         stateName: 'unloaded',
-        title: 'Nobel Prize',
+        title: 'Covid19',
         onClick: function(btn,map) {
-            $("#nobelPrize_Info").modal("show");
+            $("#covid19_Info").modal("show");
             $(".close").click(function(){
-                $("#nobelPrize_Info").modal('hide');
+                $("#covid19_Info").modal('hide');
             });
         }
     },
      {
-        icon: "fa-solid fa-trophy",
+        icon: "fa-solid fa-plus",
         stateName: 'checked',
         onClick: function(btn,map) {
             btn.state('unchecked');
