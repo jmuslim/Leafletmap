@@ -6,12 +6,22 @@ const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
 
     //Create Extra Marker
     let redMarker = L.ExtraMarkers.icon({
-        icon: 'fa-solid fa-map-pin' ,
-        markerColor: '#f56342',
-        iconColor:'red',
+        icon: 'fa-solid fa-location-arrow' ,
+        markerColor: '#fa0a36',
+        iconColor:'#fa0a36',
         shape: 'square',
         prefix: 'fa'
       });
+
+    let blueMarker = L.ExtraMarkers.icon({
+        icon: 'fa-solid fa-map' ,
+        markerColor: '#121db8',
+        iconColor:'#121db8',
+        shape: 'square',
+        prefix: 'fa'
+      });
+
+
 
       //Extra map layer
 let Stadia_OSMBright = L.marker([39.73, -104.8], {icon: redMarker}).bindPopup('This is Stadia_OSMBright map.'),
@@ -291,7 +301,7 @@ $('#countryList').change(function(e){
                             console.log(citiesResult);
                             let marker_cluster = L.markerClusterGroup();
                            for (const iterator of citiesResult.data.geonames) {
-                            marker_cluster.addLayer(L.marker([iterator.lat, iterator.lng], {icon: redMarker}).bindPopup(`<p>${iterator.name}</p>`));
+                            marker_cluster.addLayer(L.marker([iterator.lat, iterator.lng], {icon: blueMarker}).bindPopup(`<p>${iterator.name}</p>`));
                            }
                             myMap.addLayer(marker_cluster);
                         }
