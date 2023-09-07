@@ -97,7 +97,12 @@ const currencyDisplay = document.querySelector('.currency');
 const wikipediaLink = document.querySelector('.wikipedia');
 const covid19Link = document.querySelector('.covid19');
 
-
+if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(success, error);
+}
+function error(err){
+    console.log(err);
+}
 
 // Marking Current Poisition
 function success (position){
