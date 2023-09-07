@@ -22,6 +22,28 @@ const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
       });
 
 
+//coustomise icon
+    let customiseIcon = L.icon({
+         iconUrl: 'libs/leaflet/images/marker.jpg',
+         shadowUrl: 'libs/leaflet/images/markers-shadowxx.png',
+         iconSize:     [35, 40],
+         shadowSize:   [15, 25], 
+         iconAnchor:   [10, 50], 
+         shadowAnchor: [4, 30], 
+         popupAnchor:  [-1, -15] 
+    });
+//coustomise current location icon
+    let current_Location_Icon = L.icon({
+         iconUrl: 'libs/leaflet/images/current_location.jpg',
+         shadowUrl: 'libs/leaflet/images/markers-shadowxx.png',
+         iconSize:     [35, 40],
+         shadowSize:   [15, 25], 
+         iconAnchor:   [10, 50], 
+         shadowAnchor: [4, 30], 
+         popupAnchor:  [-1, -15] 
+    });
+
+
 
       //Extra map layer
 let Stadia_OSMBright = L.marker([39.73, -104.8], {icon: redMarker}).bindPopup('This is Stadia_OSMBright map.'),
@@ -145,7 +167,7 @@ $.ajax({
             console.log(error);
         }
     });
-    const marker =  L.marker([lat,lng], {icon: redMarker}).addTo(myMap);
+    const marker =  L.marker([lat,lng], {icon: current_Location_Icon}).addTo(myMap);
     const circle = L.circle([lat,lng],{
     color:'blue',
     redius:500
@@ -301,7 +323,7 @@ $('#countryList').change(function(e){
                             console.log(citiesResult);
                             let marker_cluster = L.markerClusterGroup();
                            for (const iterator of citiesResult.data.geonames) {
-                            marker_cluster.addLayer(L.marker([iterator.lat, iterator.lng], {icon: blueMarker}).bindPopup(`<p>${iterator.name}</p>`));
+                            marker_cluster.addLayer(L.marker([iterator.lat, iterator.lng], {icon: customiseIcon}).bindPopup(`<p>${iterator.name}</p>`));
                            }
                             myMap.addLayer(marker_cluster);
                         }
