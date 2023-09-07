@@ -24,7 +24,7 @@ const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
 
 //coustomise icon
     let customiseIcon = L.icon({
-         iconUrl: 'libs/leaflet/images/marker.jpg',
+         iconUrl: 'libs/leaflet/images/marker.png',
          shadowUrl: 'libs/leaflet/images/markers-shadowxx.png',
          iconSize:     [35, 40],
          shadowSize:   [15, 25], 
@@ -34,7 +34,7 @@ const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
     });
 //coustomise current location icon
     let current_Location_Icon = L.icon({
-         iconUrl: 'libs/leaflet/images/current_location.jpg',
+         iconUrl: 'libs/leaflet/images/current_location.png',
          shadowUrl: 'libs/leaflet/images/markers-shadowxx.png',
          iconSize:     [35, 40],
          shadowSize:   [15, 25], 
