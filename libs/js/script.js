@@ -13,15 +13,6 @@ const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
         prefix: 'fa'
       });
 
-    let blueMarker = L.ExtraMarkers.icon({
-        icon: 'fa-solid fa-map' ,
-        markerColor: '#121db8',
-        iconColor:'#121db8',
-        shape: 'square',
-        prefix: 'fa'
-      });
-
-
 //coustomise icon
     let customiseIcon = L.icon({
          iconUrl: 'libs/leaflet/images/marker.png',
@@ -31,6 +22,15 @@ const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
          iconAnchor:   [10, 50], 
          shadowAnchor: [4, 30], 
          popupAnchor:  [-1, -15] 
+    });
+    let customiseIcon1 = L.icon({
+         iconUrl: 'libs/leaflet/images/location.png',
+         shadowUrl: 'libs/leaflet/images/markers-shadowxx.png',
+         iconSize:     [40, 40],
+         shadowSize:   [25, 35], 
+         iconAnchor:   [20, 40], 
+         shadowAnchor: [4, 30], 
+         popupAnchor:  [-5, -1] 
     });
 //coustomise current location icon
     let current_Location_Icon = L.icon({
@@ -90,25 +90,25 @@ let World7wonder;
 
 
 //World 7 wonder with overLayer
-let theColosseumMarker = L.marker([41.89032198651016, 12.492155794382084], {icon: redMarker}).bindPopup(`<strong>1.The Colosseum, Rome, Italy</strong><br>The Colosseum is the great oval amphitheater in the center of Rome where gladiators once fought for their life. The largest amphitheater ever built, it was constructed from sand and stone over eight years, from AD72 to AD80. The colossal structure could hold 80,000 spectators, arranged in a circular ring around the central stage. <br>
+let theColosseumMarker = L.marker([41.89032198651016, 12.492155794382084], {icon: customiseIcon1}).bindPopup(`<strong>1.The Colosseum, Rome, Italy</strong><br>The Colosseum is the great oval amphitheater in the center of Rome where gladiators once fought for their life.  (...) <br>
 <img width= 180 height= 180 src ="libs/images/colosseum1.webp" />`);
 
-    theGreatWallMarker = L.marker([40.432722885980226, 116.56998831293743], {icon: redMarker}).bindPopup(`<strong>2.The Great Wall of China</strong><br>The Great Wall of China is a huge barrier that spans thousands of miles along China’s historic northern border. Created over millennia, the wall began its life as a series of smaller walls dating back to the 7th century BCE, built as protective barriers against nomadic raids. In 220 BCE, measures a whopping 13,171 miles.<br>
-<img width= 180 height= 180 src ="libs/images/great-wall-china2.webp" />`);
+    theGreatWallMarker = L.marker([40.432722885980226, 116.56998831293743], {icon: customiseIcon1}).bindPopup(`<strong>2.The Great Wall of China</strong><br>The Great Wall of China is a huge barrier that spans thousands of miles along China’s historic northern border. (...)<br>
+<img width= 180 height= 180 src ="libs/images/great-wall-china2.webp)" />`);
 
-    theTajMahalMarker = L.marker([27.17528794423407, 78.0420670936512], {icon: redMarker}).bindPopup(`<strong>3.The Taj Mahal, India</strong><br>ndia’s renowned Taj Mahal (Persian for Crown of Palaces) is the stunning white marble mausoleum on the bank of the Yamuna River in the city of Agra. Mughal emperor, Shah Jahan built the temple as a tomb for his beloved wife Mumtaz Mahal, who died during childbirth in 1631. A marble tomb in the center is surrounded by 42 acres of grounds, where gardens, a mosque, guest house and pool complete the complex. The project took over 22 years to complete by 20,000 workers at a cost of 32 million rupees (around US$827 million by today’s standards).<br>
+    theTajMahalMarker = L.marker([27.17528794423407, 78.0420670936512], {icon: customiseIcon1}).bindPopup(`<strong>3.The Taj Mahal, India</strong><br>ndia’s renowned Taj Mahal (Persian for Crown of Palaces) is the stunning white marble mausoleum on the bank of the Yamuna River in the city of Agra. (...)<br>
 <img width= 180 height= 180 src ="libs/images/the-taj-mahal3.webp" />`),
 
-    christTheRedeemerMarker = L.marker([-22.9516689924088, -43.210551577670024], {icon: redMarker}).bindPopup(`<strong>4.Christ the Redeemer, Brazil</strong><br>The totemic statue of Christ the Redeemer stands over Rio de Janeiro on the top of Mount Corcovado. At 30 meters tall, this monument is an iconic emblem of Brazil. This huge public artwork was designed by the Polish-French sculptor Paul Landowski in the 1920s and completed by Brazilian engineer Heitor da Silva Costa, and French engineer Albert Caquot in 1931. Made from reinforced concrete clad in over 6 million soapstone tiles, Christ the Redeemer is the largest Art Deco sculpture in the world. Built just after the end of the First World War.<br>
+    christTheRedeemerMarker = L.marker([-22.9516689924088, -43.210551577670024], {icon: customiseIcon1}).bindPopup(`<strong>4.Christ the Redeemer, Brazil</strong><br>The totemic statue of Christ the Redeemer stands over Rio de Janeiro on the top of Mount Corcovado. At 30 meters tall, this monument is an iconic emblem of Brazil (...)<br>
 <img width= 180 height= 180 src ="libs/images/christ-the-redeemer3.webp" />`),
 
-    theMachuPicchuMarker = L.marker([-13.171609953700436, -72.54265302896307], {icon: redMarker}).bindPopup(`<strong>5.Machu Picchu, Peru</strong><br>Machu Picchu is a lost treasure of the 15th century, a rare citadel discovered high in the Andes mountains above the Peruvian Sacred Valley. Astonishingly, it is one of the only pre-Columbian ruins found nearly intact, featuring evidence of former plazas, temples, agricultural terraces and homes. Archaeologists believe the citadel was built as an estate for the Inca emperor Pachacuti in around 1450 in polished drystone walls.<br>
+    theMachuPicchuMarker = L.marker([-13.171609953700436, -72.54265302896307], {icon: customiseIcon1}).bindPopup(`<strong>5.Machu Picchu, Peru</strong><br>Machu Picchu is a lost treasure of the 15th century, a rare citadel discovered high in the Andes mountains above the Peruvian Sacred Valley (...)<br>
 <img width= 180 height= 180 src ="libs/images/machu-picchu4.webp" />`);
 
-    theChichénItzáMarker = L.marker([20.68480057843818, -88.56796275716576], {icon: redMarker}).bindPopup(`<strong>6.Chichén Itzá, Mexico</strong><br>Chichen Itza, a historic Mayan city built between the 9th and 12th centuries. Constructed by the pre-Columbian Mayan tribe Itzá, the city includes a series of monuments and temples.<br>
+    theChichénItzáMarker = L.marker([20.68480057843818, -88.56796275716576], {icon: customiseIcon1}).bindPopup(`<strong>6.Chichén Itzá, Mexico</strong><br>Chichen Itza, a historic Mayan city built between the 9th and 12th centuries (...)<br>
 <img width= 180 height= 180 src ="libs/images/chichen-itza6.webp" />`);
 
-    thePetraMarker = L.marker([30.371717556690538, 35.46164280344782], {icon: redMarker}).bindPopup(`<strong>7. Petra, Jordan</strong><br> Petra, the ancient city in southern Jordan is also known as the ‘rose city’ for its golden hue.<br>
+    thePetraMarker = L.marker([30.371717556690538, 35.46164280344782], {icon: customiseIcon1}).bindPopup(`<strong>7. Petra, Jordan</strong><br> Petra, the ancient city in southern Jordan is also known as the ‘rose city’ for its golden hue (...).<br>
 <img width= 180 height= 180 src ="libs/images/Petra7.jpg" />`);
 
 
