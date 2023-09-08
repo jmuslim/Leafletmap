@@ -94,7 +94,7 @@ let theColosseumMarker = L.marker([41.89032198651016, 12.492155794382084], {icon
 <img width= 180 height= 180 src ="libs/images/colosseum1.webp" />`);
 
     theGreatWallMarker = L.marker([40.432722885980226, 116.56998831293743], {icon: customiseIcon1}).bindPopup(`<strong>2.The Great Wall of China</strong><br>The Great Wall of China is a huge barrier that spans thousands of miles along China’s historic northern border. (...)<br>
-<img width= 180 height= 180 src ="libs/images/great-wall-china2.webp)" />`);
+<img width= 180 height= 180 src ="libs/images/great-wall-china2.webp" />`);
 
     theTajMahalMarker = L.marker([27.17528794423407, 78.0420670936512], {icon: customiseIcon1}).bindPopup(`<strong>3.The Taj Mahal, India</strong><br>ndia’s renowned Taj Mahal (Persian for Crown of Palaces) is the stunning white marble mausoleum on the bank of the Yamuna River in the city of Agra. (...)<br>
 <img width= 180 height= 180 src ="libs/images/the-taj-mahal3.webp" />`),
