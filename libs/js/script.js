@@ -37,20 +37,11 @@ const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
         shape: 'square'
       });
 
-      let weather_Icon = L.ExtraMarkers.icon({
-        prefix: 'fa',
-        icon: 'fa-cloud fa-beat-fade',
-        iconColor: '#cf0a0a',
-        markerColor: 'white',
-        shape: 'square'
-      });
-
- 
 
    //Extra map layer
-let StadiaOSMBright = L.marker([39.73, -104.8], {icon: arrowMarker}).bindPopup('This is Stadia_OSMBright map.'),
-Stadia_AlidadeSmooth = L.marker([39.75, -105.23], {icon: arrowMarker}).bindPopup('This is Stadia_AlidadeSmooth map.'),
-USGS_USImageryTopo = L.marker([39.79, -105.23], {icon: arrowMarker}).bindPopup('This is USGS_USImageryTopo map.'),
+let StadiaOSMBright = L.marker([39.73, -104.8], {icon: arrowMarker, earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is Stadia_OSMBright map.'),
+Stadia_AlidadeSmooth = L.marker([39.75, -105.23], {icon: arrowMarker, earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is Stadia_AlidadeSmooth map.'),
+USGS_USImageryTopo = L.marker([39.79, -105.23], {icon: arrowMarker, earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is USGS_USImageryTopo map.'),
 satellite = L.tileLayer('http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}',{
     maxZoom: 20,
     subdomains:['mt0','mt1','mt2','mt3']
