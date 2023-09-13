@@ -8,11 +8,8 @@
 	error_reporting(E_ALL);
 
 	$executionStartTime = microtime(true);
-	$lat = $_REQUEST['latitude'];
-	$lng = $_REQUEST['longitude'];
 	
-	// $url = 'http://api.geonames.org/earthquakesJSON?formatted=true&north=' .$_REQUEST['north'].'&south=' .$_REQUEST['south'].'&east='.$_REQUEST['east']. '&west=' .$_REQUEST['west'].'&username=jmuslim&style=full';
-	$url='http://api.geonames.org/oceanJSON?formatted=true&lat='. $lat.'&lng='.$lng .'&username=jmuslim&style=full';
+	$url = 'http://api.geonames.org/earthquakesJSON?formatted=true&north=' .$_REQUEST['north'].'&south=' .$_REQUEST['south'].'&east='.$_REQUEST['east']. '&west=' .$_REQUEST['west'].'&username=jmuslim&style=full';
 
 
 	$ch = curl_init();

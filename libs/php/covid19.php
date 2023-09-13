@@ -13,7 +13,6 @@
 
 	$url='https://covid-193.p.rapidapi.com/statistics?country=' .$_REQUEST['country']; 
 
-
 	$ch = curl_init();
 
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -22,7 +21,6 @@
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         "X-RapidAPI-Host: covid-193.p.rapidapi.com",
 		"X-RapidAPI-Key: 70486122e3msh0f57c19d1e1f64ap1dedccjsn25dd8e18f9cf",
-        // 'Content-Type: application/json'
       ]);
 
 
