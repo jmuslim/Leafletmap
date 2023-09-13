@@ -369,7 +369,7 @@ $.ajax({
                         // let earthquakesLayer = L.markerClusterGroup;
 
                        for (const iterator of earthquakesResult.data.earthquakes) {
-                        earthquakesLayer.addLayer(L.marker([iterator.lat, iterator.lng], {icon: earthquakesIcon}).bindPopup(`<p>Earthquakes <br>Date & Time: <br><strong>${iterator.datetime}</strong></p>`));
+                        earthquakesLayer.addLayer(L.marker([iterator.lat, iterator.lng], {icon: earthquakesIcon}).bindPopup(`<p><h6>Earthquakes</h6><img src="libs/images/earthquakes.png" width="80" height="80"><br>Date & Time: <br><strong>${iterator.datetime}</strong></p>`));
                        }
                     }
                 },
