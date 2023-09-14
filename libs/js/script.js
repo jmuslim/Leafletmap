@@ -447,7 +447,7 @@ const covertTo = document.querySelector('.coverto');
                     console.log(result4.data);
 
                     wikipediaTitle.innerHTML = "";
-                    wikipediaTitle.innerHTML +=`${result4.data.geonames[0].title}`;
+                    wikipediaTitle.innerHTML +=`${result4.data.geonames[1].title}`;
                     wikipediaLink.innerHTML = "";
                     wikipediaLink.innerHTML +=`
                     <strong><img src="${result4.data.geonames[0].thumbnailImg}" height="100" width="200"><br>
