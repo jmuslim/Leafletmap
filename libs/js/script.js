@@ -381,13 +381,13 @@ $.ajax({
                     if(earthquakesMarker){
                         earthquakesMarker.clearLayers();
                     }
-                    earthquakesMarker= markerClusterGroup();
+                    earthquakesMarker= L.markerClusterGroup();
                     if(earthquakesResult.status.code == "200"){
                        for (const iterator of earthquakesResult.data.earthquakes) {
                         earthquakesMarker.addLayer(L.marker([iterator.lat, iterator.lng], {icon: earthquakesIcon}).bindPopup(`<p><h6>Earthquakes</h6><img src="libs/images/earthquakes.png" width="80" height="80"><br>Date & Time: <br><strong>${iterator.datetime}</strong></p>`));
                                           }
                                         }
-                                        myMap.addLayer(earthquakesMarker);
+                        myMap.addLayer(earthquakesMarker);
                 },
                 error:function(err){
                     console.log(err);
