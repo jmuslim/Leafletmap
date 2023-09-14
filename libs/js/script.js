@@ -1,3 +1,8 @@
+// Global Veriable 
+let border = null;
+let citiMarker = null;
+let earthquakesMarker = null;
+
 // Creating map and tiles
 const myMap = L.map('gazMap').setView([0, 0], 4);
 
@@ -39,9 +44,9 @@ const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
 
 
    //Extra map layer
-let StadiaOSMBright = L.marker([39.73, -104.8], {icon: arrowMarker, earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is Stadia_OSMBright map.'),
-Stadia_AlidadeSmooth = L.marker([39.75, -105.23], {icon: arrowMarker, earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is Stadia_AlidadeSmooth map.'),
-USGS_USImageryTopo = L.marker([39.79, -105.23], {icon: arrowMarker, earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is USGS_USImageryTopo map.'),
+let StadiaOSMBright = L.marker( {icon: arrowMarker, earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is Stadia_OSMBright map.'),
+Stadia_AlidadeSmooth = L.marker({icon: arrowMarker, earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is Stadia_AlidadeSmooth map.'),
+USGS_USImageryTopo = L.marker({icon: arrowMarker, earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is USGS_USImageryTopo map.'),
 satellite = L.tileLayer('http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}',{
     maxZoom: 20,
     subdomains:['mt0','mt1','mt2','mt3']
@@ -85,7 +90,7 @@ Stadia_AlidadeSmooth = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_s
 // BaseMap, and OverLayers
     let baseMaps;
     let overlayer;
-    
+
 
     const layerControl = L.control.layers(baseMaps, overlayer).addTo(myMap);
     const mousePosition = L.control.mousePosition().addTo(myMap);
@@ -152,9 +157,14 @@ $('#countryList').on('change', function() {
         data:{countryCode:$('#countryList').val()},
         dataType: 'JSON',
         success: function (result) {
-            // console.log( result)
-           let border = L.geoJSON(result.data).addTo(myMap);
-           myMap.fitBounds(border.getBounds());
+            console.log( result)
+            if(border){
+                border.clearLayers();
+            }
+           border = L.geoJSON(result.data).addTo(myMap);
+            myMap.fitBounds(border.getBounds());
+
+          
         },
         error: function (err) {
             console.log(err);
@@ -219,12 +229,12 @@ $('#countryList').change(function(e){
                         longitude: result.data.results[0].geometry.lng
                     },
                         success: function(result1) {
-                            // console.log(JSON.stringify(result1));
-                            // console.log(result1);
+                            console.log(JSON.stringify(result1));
+                            console.log(result1);
                          if (result1.status.name == "ok") {
 
                             weatherTitle.innerHTML = "";
-                            weatherTitle.innerHTML += ` ${result1.data.sys.country}, ${result1.data.name}`
+                            weatherTitle.innerHTML += ` ${result.data.results[0].formatted}`;
                             currentTemparature.innerHTML = "";
                             currentTemparature.innerHTML += `<strong>Temperature: </strong>${result1.data.main.temp}&deg;C`;
                             weatherIcon.innerHTML = "";
@@ -261,7 +271,7 @@ const postalCode_Format = document.querySelector('.postalCode');
             country:$('#countryList').val()
         },
             success: function(result2) {
-                // console.log(JSON.stringify(result2));
+                console.log(JSON.stringify(result2));
              if (result2.status.code == "200") {
                 // create cities ajax request here
                 // console.log(result2.status.code, typeof result2.status.code);
@@ -274,6 +284,7 @@ const postalCode_Format = document.querySelector('.postalCode');
                   countryName.innerHTML +=` ${result2.data[0].countryName}`;
                   capitalName.innerHTML="";
                   capitalName.innerHTML += `${result2.data[0].capital}`;
+                  $('#weatherModalLabel').html(`${$('#weatherModalLabel').html()}${result2.data[0].capital}`);
                   continentName.innerHTML="";
                   continentName.innerHTML += `${result2.data[0].continentName}`;
                   languages.innerHTML="";
@@ -307,7 +318,7 @@ const postalCode_Format = document.querySelector('.postalCode');
                 // console.log(JSON.stringify(result2));
                 // console.log(geoResult);
              if (geoResult.status.code == "200") {
-                // create cities ajax request here
+                // created cities ajax request 
                 $.ajax({
                     url:"libs/php/cities.php",
                     type: 'POST',
@@ -321,13 +332,15 @@ const postalCode_Format = document.querySelector('.postalCode');
                     },
                     success: function(citiesResult){
                         console.log(citiesResult);
+                        if(citiMarker){
+                            citiMarker.clearLayers();
+                        }
+                        citiMarker=L.markerClusterGroup();
                         if(citiesResult.status.code == "200"){
-                            // let cities = L.markerClusterGroup;
-
                            for (const iterator of citiesResult.data.geonames) {
-                            cities.addLayer(L.marker([iterator.lat, iterator.lng], {icon: cityIcon}).bindPopup(`<p>${iterator.name}</p>`));
-                           }
-                            // myMap.addLayer(cities);
+                            citiMarker.addLayer(L.marker([iterator.lat, iterator.lng], {icon: cityIcon}).bindPopup(`<p>${iterator.name}</p>`));
+                       }
+                            myMap.addLayer(citiMarker);
                         }
                     },
                     error:function(err){
@@ -365,13 +378,16 @@ $.ajax({
                 },
                 success: function(earthquakesResult){
                     console.log(earthquakesResult);
-                    if(earthquakesResult.status.code == "200"){
-                        // let earthquakesLayer = L.markerClusterGroup;
-
-                       for (const iterator of earthquakesResult.data.earthquakes) {
-                        earthquakesLayer.addLayer(L.marker([iterator.lat, iterator.lng], {icon: earthquakesIcon}).bindPopup(`<p><h6>Earthquakes</h6><img src="libs/images/earthquakes.png" width="80" height="80"><br>Date & Time: <br><strong>${iterator.datetime}</strong></p>`));
-                       }
+                    if(earthquakesMarker){
+                        earthquakesMarker.clearLayers();
                     }
+                    earthquakesMarker= markerClusterGroup();
+                    if(earthquakesResult.status.code == "200"){
+                       for (const iterator of earthquakesResult.data.earthquakes) {
+                        earthquakesMarker.addLayer(L.marker([iterator.lat, iterator.lng], {icon: earthquakesIcon}).bindPopup(`<p><h6>Earthquakes</h6><img src="libs/images/earthquakes.png" width="80" height="80"><br>Date & Time: <br><strong>${iterator.datetime}</strong></p>`));
+                                          }
+                                        }
+                                        myMap.addLayer(earthquakesMarker);
                 },
                 error:function(err){
                     console.log(err);
@@ -398,8 +414,8 @@ const covertTo = document.querySelector('.coverto');
             success: function(result3) {
                 $('#fromAmount').val(1);
                 $('#toAmount').val('');
-                console.log(JSON.stringify(result3));
-                console.log(result3);
+                // console.log(JSON.stringify(result3));
+                // console.log(result3);
                 
                 if (result3.status.code == "200") {
                     covertTo.innerHTML ="";
