@@ -444,7 +444,7 @@ const covertTo = document.querySelector('.coverto');
             // console.log(JSON.stringify(result4));
                 if (result4.status.code == "200") {
                     // console.log(result4.status.code, typeof result4.status.code);
-                    // console.log(result4.data);
+                    console.log(result4.data);
 
                     wikipediaTitle.innerHTML = "";
                     wikipediaTitle.innerHTML +=`${result4.data.geonames[0].title}`;
