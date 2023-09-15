@@ -241,11 +241,11 @@ $('#countryList').change(function(e){
                             weatherTitle.innerHTML = "";
                             weatherTitle.innerHTML += ` ${citiesName}`;
                             currentTemparature.innerHTML = "";
-                            currentTemparature.innerHTML += `<strong>Temperature: </strong>${result1.data.main.temp}&deg;C`;
+                            currentTemparature.innerHTML += `Temperature:${result1.data.main.temp}&deg;C`;
                             weatherIcon.innerHTML = "";
                             weatherIcon.innerHTML += `<img src = https://openweathermap.org/img/wn/${result1.data.weather[0].icon}@2x.png>`;
                             cloudCondition.innerHTML = "";
-                            cloudCondition.innerHTML += `<strong>Cloud: <br></strong>${result1.data.weather[0].description}`;
+                            cloudCondition.innerHTML += `Cloud: <br>${result1.data.weather[0].description}`;
                             
                             covertTo.innerHTML ="";
                             covertTo.innerHTML =`${result.data.results[0].formatted}'s Currency `;
@@ -472,9 +472,9 @@ const covertTo = document.querySelector('.coverto');
                     wikipediaTitle.innerHTML +=`${result4.data.geonames[4].title}`;
                     wikipediaLink.innerHTML = "";
                     wikipediaLink.innerHTML +=`
-                    <strong><img src="${result4.data.geonames[0].thumbnailImg}" height="100" width="200"><br>
-                    <strong> Rank: </strong>${result4.data.geonames[0].rank}<br>
-                    <strong> Summary: </strong> ${result4.data.geonames[0].summary}<br>
+                    <img src="${result4.data.geonames[0].thumbnailImg}" height="100" width="200"><br>
+                    Rank:${result4.data.geonames[0].rank}<br>
+                    Summary:${result4.data.geonames[0].summary}<br>
                     <a href="${result4.data.geonames[0].wikipediaUrl}">Wikipeadia</a>
                     `
                     $('#wikipedia_Info').modal();
