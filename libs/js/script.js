@@ -2,6 +2,8 @@
 let border = null;
 let citiMarker = null;
 let earthquakesMarker = null;
+let locationMarker = null;
+let citiesName = null;
 
 // Creating map and tiles
 const myMap = L.map('gazMap').setView([0, 0], 4);
@@ -10,17 +12,17 @@ const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(myMap);
 
     //Create Extra Marker
-    let arrowMarker = L.ExtraMarkers.icon({
-        icon: 'fa-location-arrow fa-beat' ,
-        prefix: 'fa',
-        markerColor: 'white',
-        iconColor:'#0721a3',
-        shape: 'square'
-      });
+    // let arrowMarker = L.ExtraMarkers.icon({
+    //     icon: 'fa-location-arrow' ,
+    //     prefix: 'fa',
+    //     markerColor: 'white',
+    //     iconColor:'#0721a3',
+    //     shape: 'square'
+    //   });
 
       let globeIcone = L.ExtraMarkers.icon({
         prefix: 'fa',
-        icon: 'fa-earth fa-bounce',
+        icon: 'fa-earth',
         iconColor: 'black',
         markerColor: 'white',
         shape: 'square'
@@ -28,7 +30,7 @@ const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
 
       let cityIcon = L.ExtraMarkers.icon({
         prefix: 'fa',
-        icon: 'fa-city fa-spin',
+        icon: 'fa-city',
         iconColor: '#530669',
         markerColor: 'white',
         shape: 'square'
@@ -36,7 +38,7 @@ const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
 
       let earthquakesIcon = L.ExtraMarkers.icon({
         prefix: 'fa',
-        icon: 'fa-cloud-bolt fa-shake',
+        icon: 'fa-solid fa-cloud-bolt',
         iconColor: '#cf0a0a',
         markerColor: 'white',
         shape: 'square'
@@ -44,9 +46,9 @@ const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
 
 
    //Extra map layer
-let StadiaOSMBright = L.marker( {icon: arrowMarker, earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is Stadia_OSMBright map.'),
-Stadia_AlidadeSmooth = L.marker({icon: arrowMarker, earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is Stadia_AlidadeSmooth map.'),
-USGS_USImageryTopo = L.marker({icon: arrowMarker, earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is USGS_USImageryTopo map.'),
+let StadiaOSMBright = L.marker( {icon: earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is Stadia_OSMBright map.'),
+Stadia_AlidadeSmooth = L.marker({icon:  earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is Stadia_AlidadeSmooth map.'),
+USGS_USImageryTopo = L.marker({icon:  earthquakesIcon, cityIcon, globeIcone}).bindPopup('This is USGS_USImageryTopo map.'),
 satellite = L.tileLayer('http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}',{
     maxZoom: 20,
     subdomains:['mt0','mt1','mt2','mt3']
@@ -114,6 +116,7 @@ const covid19Link = document.querySelector('.covid19');
 if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(success, error);
 }
+
 function error(err){
     console.log(err);
 }
@@ -139,12 +142,14 @@ $.ajax({
             console.log(error);
         }
     });
-    const marker =  L.marker([lat,lng], {icon: arrowMarker}).addTo(myMap);
-    const circle = L.circle([lat,lng],{
-    color:'blue',
-    redius:500
-    }).addTo(myMap);
-    marker.bindPopup(`[<strong>lat:</strong> 51.752 ]<br>[<strong>lng:</strong> -0.925 ]<br><img width= 120 height= 100 src="libs/images/england.webp"/>`).openPopup();
+
+
+    // if(locationMarker){
+    //     locationMarker.clearLayers();
+    // }
+    //  locationMarker =  L.marker([lat,lng], {icon: arrowMarker}).addTo(myMap);
+    // locationMarker.bindPopup(`[<strong>lat:</strong> 51.752 ]<br>[<strong>lng:</strong> -0.925 ]<br>
+    // <img width= 80 height= 80 src="libs/images/england.webp"/>`).openPopup();
 }
 
 
@@ -157,7 +162,7 @@ $('#countryList').on('change', function() {
         data:{countryCode:$('#countryList').val()},
         dataType: 'JSON',
         success: function (result) {
-            console.log( result)
+            // console.log( result)
             if(border){
                 border.clearLayers();
             }
@@ -216,7 +221,7 @@ $('#countryList').change(function(e){
             countryName: encodeURI($('#countryList option:selected').text())
         },
             success: function(result) {
-                console.log(result);
+                // console.log(result);
              if (result.status.name == "ok") {
 
                 //Weather
@@ -229,19 +234,21 @@ $('#countryList').change(function(e){
                         longitude: result.data.results[0].geometry.lng
                     },
                         success: function(result1) {
-                            console.log(JSON.stringify(result1));
-                            console.log(result1);
+                            // console.log(JSON.stringify(result1));
+                            // console.log(result1);
                          if (result1.status.name == "ok") {
 
                             weatherTitle.innerHTML = "";
-                            weatherTitle.innerHTML += ` ${result.data.results[0].formatted}`;
+                            weatherTitle.innerHTML += ` ${citiesName}`;
                             currentTemparature.innerHTML = "";
                             currentTemparature.innerHTML += `<strong>Temperature: </strong>${result1.data.main.temp}&deg;C`;
                             weatherIcon.innerHTML = "";
                             weatherIcon.innerHTML += `<img src = https://openweathermap.org/img/wn/${result1.data.weather[0].icon}@2x.png>`;
                             cloudCondition.innerHTML = "";
                             cloudCondition.innerHTML += `<strong>Cloud: <br></strong>${result1.data.weather[0].description}`;
-                            $('#weatherUpdate').modal("show");
+                            
+                            covertTo.innerHTML ="";
+                            covertTo.innerHTML =`${result.data.results[0].formatted}'s Currency `;
                          }
                },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -271,7 +278,7 @@ const postalCode_Format = document.querySelector('.postalCode');
             country:$('#countryList').val()
         },
             success: function(result2) {
-                console.log(JSON.stringify(result2));
+                // console.log(JSON.stringify(result2));
              if (result2.status.code == "200") {
                 // create cities ajax request here
                 // console.log(result2.status.code, typeof result2.status.code);
@@ -331,12 +338,13 @@ const postalCode_Format = document.querySelector('.postalCode');
                         lang: geoResult.data[0].languages,
                     },
                     success: function(citiesResult){
-                        console.log(citiesResult);
+                        // console.log(citiesResult);
                         if(citiMarker){
                             citiMarker.clearLayers();
                         }
                         citiMarker=L.markerClusterGroup();
                         if(citiesResult.status.code == "200"){
+                            citiesName = citiesResult.data.geonames[0].name;
                            for (const iterator of citiesResult.data.geonames) {
                             citiMarker.addLayer(L.marker([iterator.lat, iterator.lng], {icon: cityIcon}).bindPopup(`<p>${iterator.name}</p>`));
                        }
@@ -353,6 +361,7 @@ const postalCode_Format = document.querySelector('.postalCode');
             console.log(jqXHR);
         }
     });
+
 
 //EarthQuakes OverLayer
 $.ajax({
@@ -384,8 +393,21 @@ $.ajax({
                     earthquakesMarker= L.markerClusterGroup();
                     if(earthquakesResult.status.code == "200"){
                        for (const iterator of earthquakesResult.data.earthquakes) {
-                        earthquakesMarker.addLayer(L.marker([iterator.lat, iterator.lng], {icon: earthquakesIcon}).bindPopup(`<p><h6>Earthquakes</h6><img src="libs/images/earthquakes.png" width="80" height="80"><br>Date & Time: <br><strong>${iterator.datetime}</strong></p>`));
-                                          }
+                        earthquakesMarker.addLayer(L.marker([iterator.lat, iterator.lng], {icon: earthquakesIcon}).bindPopup(`<strong>Earthquakes dates:</strong><br>
+
+                        ${earthquakesResult.data.earthquakes[0].datetime}<br>
+                        ${earthquakesResult.data.earthquakes[1].datetime}<br>
+                        ${earthquakesResult.data.earthquakes[2].datetime}<br>
+                        ${earthquakesResult.data.earthquakes[3].datetime}<br>
+                        ${earthquakesResult.data.earthquakes[4].datetime}<br>
+                        ${earthquakesResult.data.earthquakes[5].datetime}<br>
+                        ${earthquakesResult.data.earthquakes[6].datetime}<br>
+                        ${earthquakesResult.data.earthquakes[7].datetime}<br>
+                        ${earthquakesResult.data.earthquakes[8].datetime}<br>
+                        ${earthquakesResult.data.earthquakes[9].datetime}<br>
+                        `));
+                    }
+                    /* ${iterator.datetime[0]},<br> */
                                         }
                         myMap.addLayer(earthquakesMarker);
                 },
@@ -418,8 +440,8 @@ const covertTo = document.querySelector('.coverto');
                 // console.log(result3);
                 
                 if (result3.status.code == "200") {
-                    covertTo.innerHTML ="";
-                    covertTo.innerHTML =`Conver to ${result3.data[1]}`;
+                  /*  covertTo.innerHTML ="";
+                    covertTo.innerHTML =`Conver to ${result3.data[1]}`;*/
                     $('#exchange_rate_value').val(result3.data[2]);
                     $('#toAmount').val(result3.data[2] * $('#fromAmount').val());
                 }
@@ -444,10 +466,10 @@ const covertTo = document.querySelector('.coverto');
             // console.log(JSON.stringify(result4));
                 if (result4.status.code == "200") {
                     // console.log(result4.status.code, typeof result4.status.code);
-                    console.log(result4.data);
+                    // console.log(result4.data);
 
                     wikipediaTitle.innerHTML = "";
-                    wikipediaTitle.innerHTML +=`${result4.data.geonames[0].title}`;
+                    wikipediaTitle.innerHTML +=`${result4.data.geonames[4].title}`;
                     wikipediaLink.innerHTML = "";
                     wikipediaLink.innerHTML +=`
                     <strong><img src="${result4.data.geonames[0].thumbnailImg}" height="100" width="200"><br>
@@ -594,7 +616,7 @@ L.easyButton({
     position: 'topleft',
     id: 'currencyModal',
     states: [{
-        icon: "fa-solid fa-coins",
+        icon: "fa-coins",
         stateName: 'unloaded',
         title: 'Currency',
         onClick: function(btn,map) {
@@ -605,7 +627,7 @@ L.easyButton({
         }
     },
      {
-        icon: "fa-solid fa-coins",
+        icon: "fa-coins",
         stateName: 'checked',
         onClick: function(btn,map) {
             btn.state('unchecked');
