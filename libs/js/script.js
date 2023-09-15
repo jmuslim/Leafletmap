@@ -386,7 +386,7 @@ $.ajax({
                     west: geoResult.data[0].west,
                 },
                 success: function(earthquakesResult){
-                    console.log(earthquakesResult);
+                    // console.log(earthquakesResult);
                     if(earthquakesMarker){
                         earthquakesMarker.clearLayers();
                     }
@@ -395,16 +395,16 @@ $.ajax({
                        for (const iterator of earthquakesResult.data.earthquakes) {
                         earthquakesMarker.addLayer(L.marker([iterator.lat, iterator.lng], {icon: earthquakesIcon}).bindPopup(`<strong>Earthquakes dates:</strong><br>
 
-                        ${earthquakesResult.data.earthquakes[0].datetime}<br>
-                        ${earthquakesResult.data.earthquakes[1].datetime}<br>
-                        ${earthquakesResult.data.earthquakes[2].datetime}<br>
-                        ${earthquakesResult.data.earthquakes[3].datetime}<br>
-                        ${earthquakesResult.data.earthquakes[4].datetime}<br>
-                        ${earthquakesResult.data.earthquakes[5].datetime}<br>
-                        ${earthquakesResult.data.earthquakes[6].datetime}<br>
-                        ${earthquakesResult.data.earthquakes[7].datetime}<br>
-                        ${earthquakesResult.data.earthquakes[8].datetime}<br>
-                        ${earthquakesResult.data.earthquakes[9].datetime}<br>
+                        ➤${earthquakesResult.data.earthquakes[0].datetime}<br>
+                        ➤${earthquakesResult.data.earthquakes[1].datetime}<br>
+                        ➤${earthquakesResult.data.earthquakes[2].datetime}<br>
+                        ➤${earthquakesResult.data.earthquakes[3].datetime}<br>
+                        ➤${earthquakesResult.data.earthquakes[4].datetime}<br>
+                        ➤${earthquakesResult.data.earthquakes[5].datetime}<br>
+                        ➤${earthquakesResult.data.earthquakes[6].datetime}<br>
+                        ➤${earthquakesResult.data.earthquakes[7].datetime}<br>
+                        ➤${earthquakesResult.data.earthquakes[8].datetime}<br>
+                        ➤${earthquakesResult.data.earthquakes[9].datetime}<br>
                         `));
                     }
                     /* ${iterator.datetime[0]},<br> */
