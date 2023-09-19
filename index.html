@@ -10,16 +10,15 @@
     <link rel="apple-touch-icon" sizes="180x180" href="libs/favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="libs/favicon_io/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="16x16" href="libs/favicon_io/favicon-32x32.png">
-    <!-- <link rel="manifest" href="/site.webmanifest"> -->
     <!-- Bosstrap  -->
-    <link rel="stylesheet" href="libs/bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="libs/bootstrap-5.3.2-dist/css/bootstrap.min.css" >
     
     <!-- Font-Awsome  -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <!-- <link rel="stylesheet" href="libs/fontawesome/css/all.min.css"> -->
     <link rel="stylesheet" href="libs/fontawesome/css/all.css">
     <!-- Leaflet Link  -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="crossorigin=""/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <link rel="stylesheet" href="libs/leaflet/easy-button.css">
     <link rel="stylesheet" href="libs/leaflet/L.Control.MousePosition.css">
@@ -35,11 +34,14 @@
    
   </head>
   <body>
-    <div id="gazMap">
-      <select class="header-left" id="countryList" >
-        <option value=""> Select Country </option> 
+    
+    <span id="selectContainer">
+      <select class="form-select shadow-md p-1" id="countryList" >
+        <option value="" > Select Country</option> 
       </select>
-
+    </span>
+    
+    <div id="gazMap">
       <!-- Weather Modal -->
       <div id="weatherModal" class="modal fade" tabindex="-1" data-bs-backdrop="false" data-bs-keyboard="false" aria-labelledby="weatherModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -76,7 +78,6 @@
 
  
   <!-- Country Information Modal -->
-  <div id="map"></div>
 
   <div id="countryInfoModal" class="modal" data-bs-backdrop="false" tabindex="-1">
     
@@ -217,7 +218,7 @@
         </div>
   
         <div class="modal-body">
-  
+          <div id="pre-load"></div>
           <form>
   
             <div class="form-floating mb-3">
@@ -225,7 +226,11 @@
               <input id="fromAmount" type="number" class="form-control" value="1" min="1" step="1">
               <label >From USD</label>
             </div>
-            <label for="exchangeRate">Convert to</label>
+            
+            <div>
+              <p>Convert to</p>
+            </div>
+
             <div class="form-floating">
               <input id="toAmount" type="text" class="form-control result" disabled>
               <label for="toAmount" class ="coverto">Convert to</label>
@@ -250,6 +255,7 @@
           </div>
 
         <div class="modal-body wikipedia-modal">
+          <div id="pre-load"></div>
           <label for="wikipedia" class="wikipedia"></label>
         </div>
 
@@ -331,8 +337,10 @@
       </div>
     </div>
   </div>
-  
-<!-- JavaScript -->
+</div>
+
+
+<!-- JavaScript Links-->
 <!-- Font-Awsome Link  -->
 <script src="libs/fontawesome/js/all.min.js"></script>
 <script src="libs/fontawesome/js/all.js"></script>
@@ -350,7 +358,7 @@
   <!-- JQuery  -->
   <script type="application/javascript" src="libs/js/jquery-2.2.3.min.js"></script>
   <!-- Boostrap Link  -->
-  <script src="libs/bootstrap-5.3.0-alpha3-dist/js/bootstrap.min.js"></script>
+  <script src="libs/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
   <script type="application/javascript" src="libs/bootstrap-5.3.0-alpha3-dist/js/bootstrap.min.js"></script>
   <!-- Moment  -->
   <script type="application/javascript" src="libs/moment/moment.min.js"></script>
