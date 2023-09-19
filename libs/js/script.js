@@ -4,9 +4,10 @@ let citiMarker = null;
 let earthquakesMarker = null;
 let locationMarker = null;
 let citiesName = null;
+let lineString = null;
 
 // Creating map and tiles
-const myMap = L.map('gazMap').setView([0, 0], 4);
+const myMap = L.map('gazMap').setView([0, 0], 8);
 
 const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(myMap);
@@ -137,6 +138,17 @@ $.ajax({
 
 
 // Border Highlighted for selected country 
+ let borderColor = {
+        "color":"#ebaf67",
+        "weight": 4,
+        "opacity": 0.65
+      };
+      L.geoJSON(border, {
+        style: borderColor
+      }).addTo(myMap);
+      
+
+
 $('#countryList').on('change', function() {
     
     $.ajax({
@@ -149,10 +161,8 @@ $('#countryList').on('change', function() {
             if(border){
                 border.clearLayers();
             }
-           border = L.geoJSON(result.data).addTo(myMap);
-            myMap.fitBounds(border.getBounds());
-
-          
+           border = L.geoJSON(result.data, {style: borderColor}).addTo(myMap);
+           myMap.fitBounds(border.getBounds());
         },
         error: function (err) {
             console.log(err);
@@ -161,6 +171,10 @@ $('#countryList').on('change', function() {
       
     });
         
+
+
+
+
 //Render GeoData for weather
 $.ajax({url: 'libs/php/countryBorder.php',
     type: 'GET',
@@ -234,9 +248,6 @@ $('#countryList').change(function(e){
                             covertTo.innerHTML =`${result.data.results[0].formatted}'s Currency `;
 
                              $('#weatherModal').modal();
-
-                            $('#pre-load').addClass("fadeOut");
-
                          }
                },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -293,9 +304,6 @@ const postalCode_Format = document.querySelector('.postalCode');
                   postalCode_Format.innerHTML="";
                   postalCode_Format.innerHTML += `${result2.data[0].postalCodeFormat}`;
                 $('#countryInfoModal').modal();
-
-                $('#pre-load').addClass("fadeOut");
-
              }
    },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -435,9 +443,6 @@ const covertTo = document.querySelector('.coverto');
                     covertTo.innerHTML =`Conver to ${result3.data[1]}`;*/
                     $('#exchange_rate_value').val(result3.data[2]);
                     $('#toAmount').val(result3.data[2] * $('#fromAmount').val());
-
-                    $('#pre-load').addClass("fadeOut");
-
                 }
             },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -472,9 +477,6 @@ const covertTo = document.querySelector('.coverto');
                     <a href="${result4.data.geonames[0].wikipediaUrl}">Wikipeadia</a>
                     `
                     $('#wikipedia_Info').modal();
-
-                    $('#pre-load').addClass("fadeOut");
-
                 }
             },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -527,34 +529,13 @@ const totalDeath = document.querySelector('.totalDeath');
                     totalDeath.innerHTML = "";
                     totalDeath.innerHTML += `${total_deaths}`;
                     $('#covidInfoModal').modal();
-
-                    $('#pre-load').addClass("fadeOut");
-
                 }
             },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR);
              }
     });
-});
-
-//Pre-loader
-
-$('#weatherModal').on('hidden.bs.modal', function (e,t) {
-    $('#pre-load').removeClass("fadeOut");
-  });
-  $('#wikipediaModal').on('hidden.bs.modal', function (e, t) {
-    $('#pre-load').removeClass("fadeOut");
-  });
-  $('#countryInfoModal').on('hidden.bs.modal', function (e, t) {
-  });
-  $('#currencyModal').on('hidden.bs.modal', function (e, t) {
-    $('#pre-load').removeClass("fadeOut");
-  });
-  $('#covidInfoModal').on('hidden.bs.modal', function (e, t) {
-    $('#pre-load').removeClass("fadeOut");
-  });
-  
+}); 
 
 //Wikipeadia Link L.easyButton
 L.easyButton({
@@ -676,5 +657,14 @@ L.easyButton({
         }
     }]
 }).addTo(myMap);
+
+// Pre-Loader 
+$(window).on('load', function () {
+    if ($('#preloader').length) {
+    $('#preloader').delay(1000).fadeOut('slow', function () {
+    $(this).remove();
+    });
+    }
+    });
 
   
