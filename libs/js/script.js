@@ -11,15 +11,6 @@ const myMap = L.map('gazMap').setView([0, 0], 4);
 const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(myMap);
 
-    //Create Extra Marker
-    // let arrowMarker = L.ExtraMarkers.icon({
-    //     icon: 'fa-location-arrow' ,
-    //     prefix: 'fa',
-    //     markerColor: 'white',
-    //     iconColor:'#0721a3',
-    //     shape: 'square'
-    //   });
-
       let globeIcone = L.ExtraMarkers.icon({
         prefix: 'fa',
         icon: 'fa-earth',
@@ -31,16 +22,16 @@ const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
       let cityIcon = L.ExtraMarkers.icon({
         prefix: 'fa',
         icon: 'fa-city',
-        iconColor: '#530669',
-        markerColor: 'white',
+        iconColor: 'white',
+        markerColor: '#530669',
         shape: 'square'
       });
 
       let earthquakesIcon = L.ExtraMarkers.icon({
         prefix: 'fa',
         icon: 'fa-solid fa-cloud-bolt',
-        iconColor: '#cf0a0a',
-        markerColor: 'white',
+        // iconColor: '#cf0a0a',
+        markerColor: 'black',
         shape: 'square'
       });
 
@@ -142,14 +133,6 @@ $.ajax({
             console.log(error);
         }
     });
-
-
-    // if(locationMarker){
-    //     locationMarker.clearLayers();
-    // }
-    //  locationMarker =  L.marker([lat,lng], {icon: arrowMarker}).addTo(myMap);
-    // locationMarker.bindPopup(`[<strong>lat:</strong> 51.752 ]<br>[<strong>lng:</strong> -0.925 ]<br>
-    // <img width= 80 height= 80 src="libs/images/england.webp"/>`).openPopup();
 }
 
 
@@ -249,6 +232,11 @@ $('#countryList').change(function(e){
                             
                             covertTo.innerHTML ="";
                             covertTo.innerHTML =`${result.data.results[0].formatted}'s Currency `;
+
+                             $('#weatherModal').modal();
+
+                            $('#pre-load').addClass("fadeOut");
+
                          }
                },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -305,6 +293,9 @@ const postalCode_Format = document.querySelector('.postalCode');
                   postalCode_Format.innerHTML="";
                   postalCode_Format.innerHTML += `${result2.data[0].postalCodeFormat}`;
                 $('#countryInfoModal').modal();
+
+                $('#pre-load').addClass("fadeOut");
+
              }
    },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -444,6 +435,9 @@ const covertTo = document.querySelector('.coverto');
                     covertTo.innerHTML =`Conver to ${result3.data[1]}`;*/
                     $('#exchange_rate_value').val(result3.data[2]);
                     $('#toAmount').val(result3.data[2] * $('#fromAmount').val());
+
+                    $('#pre-load').addClass("fadeOut");
+
                 }
             },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -478,6 +472,9 @@ const covertTo = document.querySelector('.coverto');
                     <a href="${result4.data.geonames[0].wikipediaUrl}">Wikipeadia</a>
                     `
                     $('#wikipedia_Info').modal();
+
+                    $('#pre-load').addClass("fadeOut");
+
                 }
             },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -530,6 +527,9 @@ const totalDeath = document.querySelector('.totalDeath');
                     totalDeath.innerHTML = "";
                     totalDeath.innerHTML += `${total_deaths}`;
                     $('#covidInfoModal').modal();
+
+                    $('#pre-load').addClass("fadeOut");
+
                 }
             },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -538,6 +538,23 @@ const totalDeath = document.querySelector('.totalDeath');
     });
 });
 
+//Pre-loader
+
+$('#weatherModal').on('hidden.bs.modal', function (e,t) {
+    $('#pre-load').removeClass("fadeOut");
+  });
+  $('#wikipediaModal').on('hidden.bs.modal', function (e, t) {
+    $('#pre-load').removeClass("fadeOut");
+  });
+  $('#countryInfoModal').on('hidden.bs.modal', function (e, t) {
+  });
+  $('#currencyModal').on('hidden.bs.modal', function (e, t) {
+    $('#pre-load').removeClass("fadeOut");
+  });
+  $('#covidInfoModal').on('hidden.bs.modal', function (e, t) {
+    $('#pre-load').removeClass("fadeOut");
+  });
+  
 
 //Wikipeadia Link L.easyButton
 L.easyButton({
@@ -549,7 +566,7 @@ L.easyButton({
         title: 'Wikipeadia',
         onClick: function(btn,map) {
             $("#wikipediaModal").modal("show");
-            $(".close").click(function(){
+            $(".close").click(function(e){
                 $("#wikipediaModal").modal('hide');
             });
         }
@@ -573,7 +590,7 @@ L.easyButton({
         title: 'Weather',
         onClick: function(btn,map) {
             $("#weatherModal").modal("show");
-            $(".close").click(function(){
+            $(".close").click(function(e){
                 $("#weatherModal").modal('hide');
             });
         }
@@ -597,7 +614,7 @@ L.easyButton({
         title: 'Country Details',
         onClick: function(btn,map) {
             $("#countryInfoModal").modal('show');
-            $(".close").click(function(){
+            $(".close").click(function(e){
                 $("#countryInfoModal").modal('hide');
             });
         }
@@ -621,7 +638,7 @@ L.easyButton({
         title: 'Currency',
         onClick: function(btn,map) {
             $("#currencyModal").modal("show");
-            $(".close").click(function(){
+            $(".close").click(function(e){
                 $("#currencyModal").modal('hide');
             });
         }
@@ -646,7 +663,7 @@ L.easyButton({
         title: 'Covid19',
         onClick: function(btn,map) {
             $("#covidInfoModal").modal("show");
-            $(".close").click(function(){
+            $(".close").click(function(e){
                 $("#covidInfoModal").modal('hide');
             });
         }
@@ -659,3 +676,5 @@ L.easyButton({
         }
     }]
 }).addTo(myMap);
+
+  
