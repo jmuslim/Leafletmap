@@ -85,9 +85,7 @@ Stadia_AlidadeSmooth = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_s
     let baseMaps;
     let overlayer;
 
-
     const layerControl = L.control.layers(baseMaps, overlayer).addTo(myMap);
-    const mousePosition = L.control.mousePosition().addTo(myMap);
 
 
     // Adding BaseLayer 
